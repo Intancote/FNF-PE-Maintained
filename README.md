@@ -1,5 +1,11 @@
-# Friday Night Funkin' - Psych Engine
-Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
+# Friday Night Funkin' - PE: Maintained
+Engine originally made by ShadowMario with the name [PsychEngine](https://github.com/ShadowMario/FNF-PsychEngine), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
+
+Altough, it gets very few updates with many PRs getting ignored. This fork is supposed to fix those problems!
+
+All credits for these PRs that get added from the original repo will be given per commit name. Everything else are in the release notes just like the original.
+
+P.S. Everything beyond this line is the same as PsychEngine for now. Might change it later :/
 
 ## Installation:
 You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
