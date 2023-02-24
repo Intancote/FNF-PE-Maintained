@@ -89,7 +89,7 @@ class Song
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
 	{
 		var rawJson = null;
-		
+
 		var formattedFolder:String = Paths.formatToSongPath(folder);
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
 		#if MODS_ALLOWED
@@ -118,7 +118,7 @@ class Song
 		// trace(songData);
 
 		// trace('LOADED FROM JSON: ' + songData.notes);
-		/* 
+		/*
 			for (i in 0...songData.notes.length)
 			{
 				trace('LOADED FROM JSON: ' + songData.notes[i].sectionNotes);

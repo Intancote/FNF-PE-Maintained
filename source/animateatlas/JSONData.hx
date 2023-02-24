@@ -133,7 +133,7 @@ typedef FilterData = {
 		blurY:Float,
 		quality:Int
 		},
-	
+
 	?GlowFilter: {
 		blurX: Float,
 		blurY: Float,

@@ -29,7 +29,7 @@ class AtlasFrameMaker extends FlxFramesCollection
 	//public static var heightoffset:Int = 0;
 	//public static var excludeArray:Array<String>;
 	/**
-	
+
 	* Creates Frames from TextureAtlas(very early and broken ok) Originally made for FNF HD by Smokey and Rozebud
 	*
 	* @param   key                 The file path.
@@ -108,7 +108,7 @@ class AtlasFrameMaker extends FlxFramesCollection
 			}
 			else break;
 		}
-		
+
 		for (i in 0...bitMapArray.length)
 		{
 			var b = FlxGraphic.fromBitmapData(bitMapArray[i]);

@@ -58,7 +58,7 @@ class Note extends FlxSprite
 	public var lowPriority:Bool = false;
 
 	public static var swagWidth:Float = 160 * 0.7;
-	
+
 	private var colArray:Array<String> = ['purple', 'blue', 'green', 'red'];
 	private var pixelInt:Array<Int> = [0, 1, 2, 3];
 

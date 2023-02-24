@@ -64,7 +64,7 @@ class DialogueEditorState extends MusicBeatState
 				copyDefaultLine()
 			]
 		};
-		
+
 		character = new DialogueCharacter();
 		character.scrollFactor.set();
 		add(character);
@@ -99,7 +99,7 @@ class DialogueEditorState extends MusicBeatState
 		animText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		animText.scrollFactor.set();
 		add(animText);
-		
+
 		daText = new TypedAlphabet(DialogueBoxPsych.DEFAULT_TEXT_X, DialogueBoxPsych.DEFAULT_TEXT_Y, DEFAULT_TEXT);
 		daText.scaleX = 0.7;
 		daText.scaleY = 0.7;
@@ -146,7 +146,7 @@ class DialogueEditorState extends MusicBeatState
 
 		soundInputText = new FlxUIInputText(10, speedStepper.y + 40, 150, '', 8);
 		blockPressWhileTypingOn.push(soundInputText);
-		
+
 		lineInputText = new FlxUIInputText(10, soundInputText.y + 35, 200, DEFAULT_TEXT, 8);
 		blockPressWhileTypingOn.push(lineInputText);
 
@@ -214,7 +214,7 @@ class DialogueEditorState extends MusicBeatState
 		switch(character.jsonFile.dialogue_pos) {
 			case 'right':
 				character.x = FlxG.width - character.width + DialogueBoxPsych.RIGHT_CHAR_X;
-			
+
 			case 'center':
 				character.x = FlxG.width / 2;
 				character.x -= character.width / 2;
@@ -241,7 +241,7 @@ class DialogueEditorState extends MusicBeatState
 		daText.text = textToType;
 		daText.resetDialogue();
 
-		if(skipDialogue) 
+		if(skipDialogue)
 			daText.finishText();
 		else if(daText.delay > 0)
 		{

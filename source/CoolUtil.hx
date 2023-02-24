@@ -33,7 +33,7 @@ class CoolUtil
 		trace(snap);
 		return (m / snap);
 	}
-	
+
 	public static function getDifficultyFilePath(num:Null<Int> = null)
 	{
 		if(num == null) num = PlayState.storyDifficulty;

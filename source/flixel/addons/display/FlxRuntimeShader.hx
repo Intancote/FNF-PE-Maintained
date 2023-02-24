@@ -11,13 +11,13 @@ import openfl.display.ShaderParameterType;
  * An wrapper for Flixel/OpenFL's shaders, which takes fragment and vertex source
  * in the constructor instead of using macros, so it can be provided data
  * at runtime (for example, when using mods).
- * 
+ *
  * HOW TO USE:
  * 1. Create an instance of this class, passing the text of the `.frag` and `.vert` files.
  *    Note that you can set either of these to null (making them both null would make the shader do nothing???).
  * 2. Use `flxSprite.shader = runtimeShader` to apply the shader to the sprite.
  * 3. Use `runtimeShader.setFloat()`, `setBool()`, etc. to modify any uniforms.
- * 
+ *
  * @author MasterEric
  * @see https://github.com/openfl/openfl/blob/develop/src/openfl/utils/_internal/ShaderMacro.hx
  * @see https://dixonary.co.uk/blog/shadertoy
@@ -137,7 +137,7 @@ class FlxRuntimeShader extends FlxShader
 	#if FLX_DRAW_QUADS
 	static final DEFAULT_FRAGMENT_SOURCE:String = "
 		#pragma header
-		
+
 		void main(void)
 		{
 			gl_FragColor = flixel_texture2D(bitmap, openfl_TextureCoordv);
@@ -155,18 +155,18 @@ class FlxRuntimeShader extends FlxShader
 	#if FLX_DRAW_QUADS
 	static final DEFAULT_VERTEX_SOURCE:String = "
 		#pragma header
-		
+
 		attribute float alpha;
 		attribute vec4 colorMultiplier;
 		attribute vec4 colorOffset;
 		uniform bool hasColorTransform;
-		
+
 		void main(void)
 		{
 			#pragma body
-			
+
 			openfl_Alphav = openfl_Alpha * alpha;
-			
+
 			if (hasColorTransform)
 			{
 				openfl_ColorOffsetv = colorOffset / 255.0;
@@ -231,7 +231,7 @@ class FlxRuntimeShader extends FlxShader
 
 		super();
 	}
-	
+
 	/**
 	 * Replace the `#pragma header` and `#pragma body` with the fragment shader header and body.
 	 */
@@ -297,7 +297,7 @@ class FlxRuntimeShader extends FlxShader
 			vertex = StringTools.replace(vertex, PRAGMA_VERSION, versionHeader);
 			var fragment = StringTools.replace(glFragmentSource, PRAGMA_PRECISION, precisionHeaders);
 			fragment = StringTools.replace(fragment, PRAGMA_VERSION, versionHeader);
-			
+
 			var id = vertex + fragment;
 
 			if (__context.__programs.exists(id)) {

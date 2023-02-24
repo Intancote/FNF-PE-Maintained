@@ -96,7 +96,7 @@ class TypedAlphabet extends Alphabet
 		showCharacterUpTo(letters.length - 1);
 		if(sound != '') FlxG.sound.play(Paths.sound(sound), volume);
 		finishedText = true;
-		
+
 		if(onFinish != null) onFinish();
 		_timeToUpdate = 0;
 	}

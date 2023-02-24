@@ -75,7 +75,7 @@ class FunkinLua {
 	#if hscript
 	public static var hscript:HScript = null;
 	#end
-	
+
 	public function new(script:String) {
 		#if LUA_ALLOWED
 		lua = LuaL.newstate();
@@ -262,7 +262,7 @@ class FunkinLua {
 			#end
 			return false;
 		});
-		
+
 		Lua_helper.add_callback(lua, "setSpriteShader", function(obj:String, shader:String) {
 			if(!ClientPrefs.shaders) return false;
 
@@ -1788,7 +1788,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "addAnimationByIndicesLoop", function(obj:String, name:String, prefix:String, indices:String, framerate:Int = 24) {
 			return addAnimByIndices(obj, name, prefix, indices, framerate, true);
 		});
-		
+
 
 		Lua_helper.add_callback(lua, "playAnim", function(obj:String, name:String, forced:Bool = false, ?reverse:Bool = false, ?startFrame:Int = 0)
 		{
@@ -2290,7 +2290,7 @@ class FunkinLua {
 			if (text5 == null) text5 = '';
 			luaTrace('' + text1 + text2 + text3 + text4 + text5, true, false);
 		});
-		
+
 		Lua_helper.add_callback(lua, "close", function() {
 			closed = true;
 			return closed;
@@ -2728,7 +2728,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "stringTrim", function(str:String) {
 			return str.trim();
 		});
-		
+
 		Lua_helper.add_callback(lua, "directoryFileList", function(folder:String) {
 			var list:Array<String> = [];
 			#if sys
@@ -2795,7 +2795,7 @@ class FunkinLua {
 		/*if(Std.isOfType(instance, Map))
 			instance.set(variable,value);
 		else*/
-			
+
 		if(PlayState.instance.variables.exists(variable))
 		{
 			PlayState.instance.variables.set(variable, value);
@@ -2860,7 +2860,7 @@ class FunkinLua {
 		return null;
 	}
 	#end
-	
+
 	function initLuaShader(name:String, ?glslVersion:Int = 120)
 	{
 		if(!ClientPrefs.shaders) return false;
@@ -2878,7 +2878,7 @@ class FunkinLua {
 
 		for(mod in Paths.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
-		
+
 		for (folder in foldersToCheck)
 		{
 			if(FileSystem.exists(folder))
@@ -3334,14 +3334,14 @@ class CustomSubstate extends MusicBeatSubstate
 		super.create();
 		PlayState.instance.callOnLuas('onCustomSubstateCreatePost', [name]);
 	}
-	
+
 	public function new(name:String)
 	{
 		CustomSubstate.name = name;
 		super();
 		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
-	
+
 	override function update(elapsed:Float)
 	{
 		PlayState.instance.callOnLuas('onCustomSubstateUpdate', [name, elapsed]);

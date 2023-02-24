@@ -83,7 +83,7 @@ class Alphabet extends FlxSpriteGroup
 				default:
 					newOffset = 0;
 			}
-	
+
 			letter.offset.x -= letter.alignOffset;
 			letter.offset.x += newOffset;
 			letter.alignOffset = newOffset;
@@ -191,7 +191,7 @@ class Alphabet extends FlxSpriteGroup
 		rows = 0;
 		for (character in newText.split(''))
 		{
-			
+
 			if(character != '\n')
 			{
 				var spaceChar:Bool = (character == " " || (bold && character == "_"));
@@ -275,7 +275,7 @@ class AlphaCharacter extends FlxSprite
 		'm'  => null, 'n'  => null, 'o'  => null, 'p'  => null, 'q'  => null, 'r'  => null,
 		's'  => null, 't'  => null, 'u'  => null, 'v'  => null, 'w'  => null, 'x'  => null,
 		'y'  => null, 'z'  => null,
-		
+
 		//numbers
 		'0'  => null, '1'  => null, '2'  => null, '3'  => null, '4'  => null,
 		'5'  => null, '6'  => null, '7'  => null, '8'  => null, '9'  => null,
@@ -399,12 +399,12 @@ class AlphaCharacter extends FlxSprite
 		this.scale.x = parent.scaleX;
 		this.scale.y = parent.scaleY;
 		alignOffset = 0;
-		
+
 		if (lastAnim != null)
 		{
 			animation.addByPrefix(lastAnim, lastAnim, 24);
 			animation.play(lastAnim, true);
-			
+
 			updateHitbox();
 			updateLetterOffset();
 		}

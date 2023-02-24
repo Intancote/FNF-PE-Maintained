@@ -185,7 +185,7 @@ class EditorLua {
 		call('onCreate', []);
 		#end
 	}
-	
+
 	public function call(event:String, args:Array<Dynamic>):Dynamic {
 		#if LUA_ALLOWED
 		if(lua == null) {

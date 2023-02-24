@@ -39,7 +39,7 @@ class SpriteSymbol extends Sprite {
 	private var _symbolName:String;
 	private var _type:String;
 	private var _loopMode:String;
-	
+
 	private var _currentFrame:Int;
 	private var _composedFrame:Int;
 	private var _bitmap:Bitmap;
@@ -183,8 +183,8 @@ class SpriteSymbol extends Sprite {
 			newSymbol.setColor(elementData.color);
 			newSymbol.setLoop(elementData.loop);
 			newSymbol.setType(elementData.symbolType);
-			
-		
+
+
 
 			if (newSymbol.type == SymbolType.GRAPHIC) {
 				var firstFrame:Int = elementData.firstFrame;
@@ -198,7 +198,7 @@ class SpriteSymbol extends Sprite {
 					newSymbol.currentFrame = firstFrame + frameAge;
 				}
 			}
-			
+
 		}
 
 		var numObsoleteSymbols:Int = (layer.numChildren - numElements);
@@ -247,8 +247,8 @@ class SpriteSymbol extends Sprite {
 				clippedTexture.copyPixels(_texture, _tempRect, _zeroPoint);
 				_bitmap.bitmapData = clippedTexture;
 				_bitmap.smoothing = smoothing;
-				
-	
+
+
 			}
 			// aditional checks for rotation
 			if (spriteData.rotated) {
@@ -299,7 +299,7 @@ class SpriteSymbol extends Sprite {
 			}
 
 		}
-		
+
 	}
 
 	private function setTransformationMatrix(data:Matrix3DData):Void {
@@ -323,7 +323,7 @@ class SpriteSymbol extends Sprite {
 			newTransform.alphaMultiplier = (data.alphaMultiplier == null ? 1 : data.alphaMultiplier);
 		}
 		transform.colorTransform = newTransform;
-		
+
 	}
 
 	private function setLoop(data:String):Void {

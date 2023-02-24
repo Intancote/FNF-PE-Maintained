@@ -152,7 +152,7 @@ class StoryMenuState extends MusicBeatState
 			lastDifficultyName = CoolUtil.defaultDifficulty;
 		}
 		curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
-		
+
 		sprDifficulty = new FlxSprite(0, leftArrow.y);
 		sprDifficulty.antialiasing = ClientPrefs.globalAntialiasing;
 		difficultySelectors.add(sprDifficulty);
@@ -433,7 +433,7 @@ class StoryMenuState extends MusicBeatState
 				CoolUtil.difficulties = diffs;
 			}
 		}
-		
+
 		if(CoolUtil.difficulties.contains(CoolUtil.defaultDifficulty))
 		{
 			curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(CoolUtil.defaultDifficulty)));

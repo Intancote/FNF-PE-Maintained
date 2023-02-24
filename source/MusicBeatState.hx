@@ -95,7 +95,7 @@ class MusicBeatState extends FlxUIState
 			{
 				stepsToDo += Math.round(getBeatsOnSection() * 4);
 				if(stepsToDo > curStep) break;
-				
+
 				curSection++;
 			}
 		}

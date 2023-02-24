@@ -61,7 +61,7 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 
-#if !flash 
+#if !flash
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
 #end
@@ -317,7 +317,7 @@ class PlayState extends MusicBeatState
 	private var controlArray:Array<String>;
 
 	var precacheList:Map<String, String> = new Map<String, String>();
-	
+
 	// stores the last judgement object
 	public static var lastRating:FlxSprite;
 	// stores the last combo sprite object
@@ -1169,7 +1169,7 @@ class PlayState extends MusicBeatState
 
 		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
-		
+
 		#if LUA_ALLOWED
 		for (notetype in noteTypeMap.keys())
 		{
@@ -1310,7 +1310,7 @@ class PlayState extends MusicBeatState
 		}
 
 		precacheList.set('alphabet', 'image');
-	
+
 		#if desktop
 		// Updating Discord Rich Presence.
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconP2.getCharacter());
@@ -1341,7 +1341,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		Paths.clearUnusedMemory();
-		
+
 		CustomFadeTransition.nextCamera = camOther;
 		if(eventNotes.length < 1) checkEventNote();
 	}
@@ -1383,7 +1383,7 @@ class PlayState extends MusicBeatState
 
 		for(mod in Paths.getGlobalMods())
 			foldersToCheck.insert(0, Paths.mods(mod + '/shaders/'));
-		
+
 		for (folder in foldersToCheck)
 		{
 			if(FileSystem.exists(folder))
@@ -2027,10 +2027,10 @@ class PlayState extends MusicBeatState
 
 		var introAlts:Array<String> = introAssets.get('default');
 		if (isPixelStage) introAlts = introAssets.get('pixel');
-		
+
 		for (asset in introAlts)
 			Paths.image(asset);
-		
+
 		Paths.sound('intro3' + introSoundsSuffix);
 		Paths.sound('intro2' + introSoundsSuffix);
 		Paths.sound('intro1' + introSoundsSuffix);
@@ -3022,7 +3022,7 @@ class PlayState extends MusicBeatState
 			cancelMusicFadeTween();
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
-		
+
 		if (startedCountdown)
 		{
 			Conductor.songPosition += FlxG.elapsed * 1000 * playbackRate;
@@ -4045,7 +4045,7 @@ class PlayState extends MusicBeatState
 		Paths.image(pixelShitPart1 + "bad" + pixelShitPart2);
 		Paths.image(pixelShitPart1 + "shit" + pixelShitPart2);
 		Paths.image(pixelShitPart1 + "combo" + pixelShitPart2);
-		
+
 		for (i in 0...10) {
 			Paths.image(pixelShitPart1 + 'num' + i + pixelShitPart2);
 		}
@@ -4127,7 +4127,7 @@ class PlayState extends MusicBeatState
 		comboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
 
 		insert(members.indexOf(strumLineNotes), rating);
-		
+
 		if (!ClientPrefs.comboStacking)
 		{
 			if (lastRating != null) lastRating.kill();
@@ -4188,7 +4188,7 @@ class PlayState extends MusicBeatState
 
 			numScore.x += ClientPrefs.comboOffset[2];
 			numScore.y -= ClientPrefs.comboOffset[3];
-			
+
 			if (!ClientPrefs.comboStacking)
 				lastScore.push(numScore);
 
@@ -4463,7 +4463,7 @@ class PlayState extends MusicBeatState
 		});
 		combo = 0;
 		health -= daNote.missHealth * healthLoss;
-		
+
 		if(instakillOnMiss)
 		{
 			vocals.volume = 0;
@@ -5082,7 +5082,7 @@ class PlayState extends MusicBeatState
 			setOnLuas('altAnim', SONG.notes[curSection].altAnim);
 			setOnLuas('gfSection', SONG.notes[curSection].gfSection);
 		}
-		
+
 		setOnLuas('curSection', curSection);
 		callOnLuas('onSectionHit', []);
 	}
@@ -5136,7 +5136,7 @@ class PlayState extends MusicBeatState
 			var myValue = script.call(event, args);
 			if(myValue == FunkinLua.Function_StopLua && !ignoreStops)
 				break;
-			
+
 			if(myValue != null && myValue != FunkinLua.Function_Continue) {
 				returnVal = myValue;
 			}
@@ -5228,7 +5228,7 @@ class PlayState extends MusicBeatState
 			var achievementName:String = achievesToCheck[i];
 			if(!Achievements.isAchievementUnlocked(achievementName) && !cpuControlled) {
 				var unlock:Bool = false;
-				
+
 				if (achievementName.contains(WeekData.getWeekFileName()) && achievementName.endsWith('nomiss')) // any FC achievements, name should be "weekFileName_nomiss", e.g: "weekd_nomiss";
 				{
 					if(isStoryMode && campaignMisses + songMisses < 1 && CoolUtil.difficultyString() == 'HARD'

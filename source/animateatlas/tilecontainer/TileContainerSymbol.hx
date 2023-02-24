@@ -399,7 +399,7 @@ class TileContainerSymbol extends TileContainer {
 		return -1;
 	}
 
-	
+
 	private function get_currentFrame():Int {
 		return _currentFrame;
 	}
