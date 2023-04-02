@@ -5,6 +5,8 @@ Altough, it gets very few updates with many PRs getting ignored. This fork is su
 
 All credits for these PRs that get added from the original repo will be given per commit name. Everything else are in the release notes just like the original.
 
+I will try to work on this project as much as I can but I still got school to worry about at the same time. I will also take breaks after each release with varying amounts of time. I hope that everyone that sees this repo understands and try to make some PRs to help out also :D
+
 P.S. Everything beyond this line is the same as PsychEngine for now. Might change it later :/
 
 ## Installation:
