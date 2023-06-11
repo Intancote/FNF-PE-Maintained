@@ -32,7 +32,9 @@ class OptionsState extends MusicBeatState
 	var options:Array<String> = [
 		'Note Colors',
 		'Controls',
+		#if !(PlayState.instance != null && OptionsState.fromPlayState)
 		'Adjust Delay and Combo',
+		#end
 		'Graphics',
 		'Visuals and UI',
 		'Gameplay'
@@ -58,7 +60,10 @@ class OptionsState extends MusicBeatState
 			case 'Gameplay':
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
-				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
+				if (!(PlayState.instance != null && OptionsState.fromPlayState))
+				{
+					LoadingState.loadAndSwitchState(new options.NoteOffsetState());
+				}
 		}
 	}
 
@@ -127,7 +132,7 @@ class OptionsState extends MusicBeatState
 			{
 				FlxG.sound.music.volume = 0.0;
 				MusicBeatState.switchState(new PlayState());
-				OptionsState.fromPlayState = true;
+				OptionsState.fromPlayState = false;
 			}
 			else // No? Then return to the main menu.
 			{
