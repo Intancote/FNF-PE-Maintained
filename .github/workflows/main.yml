@@ -47,7 +47,7 @@ jobs:
           name: linuxBuild
           path: "export/release/linux/bin"
   buildWindows64:
-    runs-on: [windows-latest, x64]
+    runs-on: windows-latest
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -71,10 +71,10 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: windowsBuild
+          name: windowsBuild64
           path: export/release/windows/bin
   buildWindows32:
-    runs-on: [windows-latest, x86]
+    runs-on: windows-latest
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -98,7 +98,7 @@ jobs:
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: windowsBuild
+          name: windowsBuild32
           path: export/release/windows/bin
   buildMac:
     runs-on: macos-latest
