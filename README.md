@@ -7,10 +7,10 @@ All credits for these PRs that get added from the original repo will be given pe
 
 I will try to work on this project as much as I can but I still got school to worry about at the same time. I will also take breaks after each release with varying amounts of time. I hope that everyone that sees this repo understands and try to make some PRs to help out also :D
 
-P.S. Everything beyond this line is the same as PsychEngine for now. Might change it later :/
+P.S. Almost everything beyond this line is the same as PsychEngine for now. Might change it later :/
 
 ## Installation:
-You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
+You must have [Haxe version 4.2.5](https://haxe.org/download/version/4.2.5/) and not any newer release of now (they break some stuff)! Also, can you seriously stop using 4.1.5, it misses some stuff.
 
 open up a Command Prompt/PowerShell or Terminal, type `haxelib install hmm`
 
