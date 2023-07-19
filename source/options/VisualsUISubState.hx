@@ -34,7 +34,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; // for Discord Rich Presence
 
-		var option:Option = new Option('Note Splash Opacity:', "Set the Opacity for the Note Splashes shown when hitting \"Sick!\" notes.", 'splashOpacity',
+		var option:Option = new Option('Note Splash Opacity:', "Set the Opacity for the Note Splashes shown\nwhen hitting \"Sick!\" notes.", 'splashOpacity',
 			'percent', 1);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
@@ -53,7 +53,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Flashing Lights', "Uncheck this if you're sensitive to flashing lights!", 'flashing', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Camera Zooms', "If unchecked, the camera won't zoom in on a beat hit.", 'camZooms', 'bool', true);
+		var option:Option = new Option('Camera Zooms', "If checked, the camera zooms in on a beat hit.", 'camZooms', 'bool', true);
 		addOption(option);
 
 		var option:Option = new Option('Score Text Zoom on Hit', "If unchecked, disables the Score text zooming\neverytime you hit a note.", 'scoreZoom',

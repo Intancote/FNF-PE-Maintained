@@ -44,14 +44,14 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 			false); // Default value
 		addOption(option);
 
-		var option:Option = new Option('Anti-Aliasing', 'If unchecked, disables anti-aliasing, increases performance\nat the cost of sharper visuals.',
+		var option:Option = new Option('Anti-Aliasing', 'If checked, enables anti-aliasing, decreases performance\nbut gives smoother visuals.',
 			'globalAntialiasing', 'bool', true);
 		option.showBoyfriend = true;
 		option.onChange = onChangeAntiAliasing; // Changing onChange is only needed if you want to make a special interaction after it changes the value
 		addOption(option);
 
 		var option:Option = new Option('Shaders', // Name
-			'If checked, enables shaders. It\'s used for some visual effects,\nand also CPU intensive for weaker PCs.', // Description
+			'If checked, enables shaders.\nIt\'s used for some visual effects,\nand also CPU intensive for weaker PCs.', // Description
 			'shaders', // Save data variable name
 			'bool', // Variable type
 			true); // Default value
