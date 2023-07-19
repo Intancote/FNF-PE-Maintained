@@ -2389,15 +2389,26 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public var displayRatings:Bool = true;
+	public var scoreSeparator:String = ' | ';
+
 	public function updateScore(miss:Bool = false)
 	{
-		scoreTxt.text = 'Score: '
-			+ songScore
-			+ ' | Misses: '
-			+ songMisses
-			+ ' | Rating: '
-			+ ratingName
-			+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+		// may be more readable than what i did previously @BeasltyGhost
+		var tempScore:String = 'Score: ' + songScore;
+
+		if (displayRatings)
+		{
+			tempScore += scoreSeparator + 'Misses: ' + songMisses;
+			tempScore += scoreSeparator + 'Rating: ' + ratingName;
+			tempScore += (ratingName != '?' ? ' (' + Highscore.floorDecimal(ratingPercent * 100, 2) + '%)' : '');
+			tempScore += (ratingFC != null && ratingFC != '' ? ' - $ratingFC' : '');
+		}
+
+		// hacky method to expand the bottom of the score text, so it doesn't cut off during beat zooms
+		tempScore += '\n';
+
+		scoreTxt.text = tempScore;
 
 		if (ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
@@ -5165,7 +5176,7 @@ class PlayState extends MusicBeatState
 
 	public function spawnNoteSplashOnNote(note:Note)
 	{
-		if (ClientPrefs.noteSplashes && note != null)
+		if (ClientPrefs.splashOpacity > 0 && note != null)
 		{
 			var strum:StrumNote = playerStrums.members[note.noteData];
 			if (strum != null)
@@ -5737,7 +5748,7 @@ class PlayState extends MusicBeatState
 			else if (songMisses >= 10)
 				ratingFC = "Clear";
 		}
-		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce -Ghost
+		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce @BeasltyGhost
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);

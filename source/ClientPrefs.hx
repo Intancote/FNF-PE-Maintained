@@ -15,7 +15,7 @@ class ClientPrefs
 	public static var showMEM:Bool = true;
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
-	public static var noteSplashes:Bool = true;
+	public static var splashOpacity:Float = 0.6;
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
 	public static var framerate:Int = 60;
@@ -34,7 +34,7 @@ class ClientPrefs
 	public static var hitsoundVolume:Float = 0;
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
-	public static var comboStacking = true;
+	public static var comboStacking:Bool = true;
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative',
@@ -101,7 +101,7 @@ class ClientPrefs
 		FlxG.save.data.showMEM = showMEM;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
-		FlxG.save.data.noteSplashes = noteSplashes;
+		FlxG.save.data.splashOpacity = splashOpacity;
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.framerate = framerate;
@@ -172,9 +172,14 @@ class ClientPrefs
 		{
 			globalAntialiasing = FlxG.save.data.globalAntialiasing;
 		}
-		if (FlxG.save.data.noteSplashes != null)
+		if (FlxG.save.data.splashOpacity != null)
 		{
-			noteSplashes = FlxG.save.data.noteSplashes;
+			splashOpacity = FlxG.save.data.splashOpacity;
+		}
+		else if (FlxG.save.data.noteSplashes != null)
+		{
+			splashOpacity = FlxG.save.data.noteSplashes ? 0.6 : 0;
+			FlxG.save.data.noteSplashes = null;
 		}
 		if (FlxG.save.data.lowQuality != null)
 		{
