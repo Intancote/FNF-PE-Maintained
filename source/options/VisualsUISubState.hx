@@ -34,7 +34,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; // for Discord Rich Presence
 
-		var option:Option = new Option('Note Splash Opacity:', "Set the alpha for the Note Splashes, shown when hitting \"Sick!\" notes.", 'splashOpacity',
+		var option:Option = new Option('Note Splash Opacity:', "Set the Opacity for the Note Splashes shown when hitting \"Sick!\" notes.", 'splashOpacity',
 			'percent', 1);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
@@ -60,7 +60,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Health Bar Transparency', 'How much transparent should the health bar and icons be.', 'healthBarAlpha', 'percent', 1);
+		var option:Option = new Option('Health Bar Opacity:', 'How opaque should the health bar and icons be.', 'healthBarAlpha', 'percent', 1);
 		option.scrollSpeed = 1.6;
 		option.minValue = 0.0;
 		option.maxValue = 1;
@@ -69,10 +69,10 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 
 		#if !mobile
-		var option:Option = new Option('FPS Counter', 'If unchecked, hides the FPS Counter.', 'showFPS', 'bool', true);
+		var option:Option = new Option('FPS Counter', 'If checked, shows the FPS Counter.', 'showFPS', 'bool', true);
 		addOption(option);
 
-		var option:Option = new Option('Memory Counter', 'If unchecked, hides the Memory Counter.', 'showMEM', 'bool', true);
+		var option:Option = new Option('Memory Counter', 'If checked, shows the Memory Counter.', 'showMEM', 'bool', true);
 		addOption(option);
 		#end
 
