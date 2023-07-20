@@ -32,7 +32,7 @@ class OptionsState extends MusicBeatState
 	var options:Array<String> = [
 		'Note Colors',
 		'Controls',
-		#if !(PlayState.instance != null && OptionsState.fromPlayState)
+		#if (!(PlayState.instance != null && OptionsState.fromPlayState))
 		'Adjust Delay and Combo',
 		#end
 		'Graphics',
@@ -44,6 +44,9 @@ class OptionsState extends MusicBeatState
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
 	public static var fromPlayState:Bool = false;
+
+	// Add this variable
+	private var showAdjustDelayOption:Bool;
 
 	function openSelectedSubstate(label:String)
 	{
@@ -84,14 +87,31 @@ class OptionsState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
 
+		// Filter out the "Adjust Delay and Combo" option if coming from PlayState.
+		var filteredOptions:Array<String> = [];
+		if (PlayState.instance != null && OptionsState.fromPlayState)
+		{
+			for (option in options)
+			{
+				if (option != "Adjust Delay and Combo")
+				{
+					filteredOptions.push(option);
+				}
+			}
+		}
+		else
+		{
+			filteredOptions = options;
+		}
+
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
-		for (i in 0...options.length)
+		for (i in 0...filteredOptions.length)
 		{
-			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
+			var optionText:Alphabet = new Alphabet(0, 0, filteredOptions[i], true);
 			optionText.screenCenter();
-			optionText.y += (100 * (i - (options.length / 2))) + 50;
+			optionText.y += (100 * (i - (filteredOptions.length / 2))) + 50;
 			grpOptions.add(optionText);
 		}
 
@@ -158,6 +178,12 @@ class OptionsState extends MusicBeatState
 
 		for (item in grpOptions.members)
 		{
+			// Skip the "Adjust Delay and Combo" option if coming from PlayState.
+			if (PlayState.instance != null && OptionsState.fromPlayState && item.text == "Adjust Delay and Combo")
+			{
+				item.alpha = 0.6;
+				continue;
+			}
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
