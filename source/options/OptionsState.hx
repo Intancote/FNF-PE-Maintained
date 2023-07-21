@@ -32,13 +32,14 @@ class OptionsState extends MusicBeatState
 	var options:Array<String> = [
 		'Note Colors',
 		'Controls',
-		#if (!(PlayState.instance != null && OptionsState.fromPlayState))
 		'Adjust Delay and Combo',
-		#end
 		'Graphics',
 		'Visuals and UI',
 		'Gameplay'
 	];
+
+	// If you want to remove filteredOptions and make all of it's instances into options instead
+	var filteredOptions:Array<String>; // Declaring filteredOptions at the class level.
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 
 	private static var curSelected:Int = 0;
@@ -63,10 +64,7 @@ class OptionsState extends MusicBeatState
 			case 'Gameplay':
 				openSubState(new options.GameplaySettingsSubState());
 			case 'Adjust Delay and Combo':
-				if (!(PlayState.instance != null && OptionsState.fromPlayState))
-				{
-					LoadingState.loadAndSwitchState(new options.NoteOffsetState());
-				}
+				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
 	}
 
@@ -88,16 +86,14 @@ class OptionsState extends MusicBeatState
 		add(bg);
 
 		// Filter out the "Adjust Delay and Combo" option if coming from PlayState.
-		var filteredOptions:Array<String> = [];
 		if (PlayState.instance != null && OptionsState.fromPlayState)
 		{
-			for (option in options)
-			{
-				if (option != "Adjust Delay and Combo")
-				{
-					filteredOptions.push(option);
-				}
-			}
+			filteredOptions = options.filter(option -> option != "Adjust Delay and Combo");
+
+			options[2] = "Graphics";
+			options[3] = "Visuals and UI";
+			options[4] = "Gameplay";
+			options[5] = "Adjust Delay and Combo";
 		}
 		else
 		{
@@ -170,20 +166,14 @@ class OptionsState extends MusicBeatState
 	{
 		curSelected += change;
 		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
+			curSelected = filteredOptions.length - 1;
+		if (curSelected >= filteredOptions.length)
 			curSelected = 0;
 
 		var bullShit:Int = 0;
 
 		for (item in grpOptions.members)
 		{
-			// Skip the "Adjust Delay and Combo" option if coming from PlayState.
-			if (PlayState.instance != null && OptionsState.fromPlayState && item.text == "Adjust Delay and Combo")
-			{
-				item.alpha = 0.6;
-				continue;
-			}
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
