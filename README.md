@@ -1,5 +1,7 @@
 # Friday Night Funkin' - PE: Maintained
 
+## THIS FORK IS NOW USELESS! PLEASE USE [PsychEngine](https://github.com/ShadowMario/FNF-PsychEngine) LIKE BEFORE! EVERYTHING PAST THIS POINT IS UNCHANGED
+
 Engine originally made by ShadowMario with the name [PsychEngine](https://github.com/ShadowMario/FNF-PsychEngine), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
 
 Although, it gets very few updates with many PRs getting ignored. This fork is supposed to fix those problems!
