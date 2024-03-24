@@ -197,6 +197,9 @@ class FreeplayState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
+		if (FlxG.sound.music != null)
+			Conductor.songPosition = FlxG.sound.music.time;
+
 		if (FlxG.sound.music.volume < 0.7)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
@@ -321,6 +324,8 @@ class FreeplayState extends MusicBeatState
 				Mods.currentModDirectory = songs[curSelected].folder;
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+				Conductor.mapBPMChanges(PlayState.SONG);
+				Conductor.bpm = PlayState.SONG.bpm;
 				if (PlayState.SONG.needsVoices)
 				{
 					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
@@ -413,6 +418,15 @@ class FreeplayState extends MusicBeatState
 
 		updateTexts(elapsed);
 		super.update(elapsed);
+		var mult:Float = FlxMath.lerp(1, iconArray[curSelected].scale.x, Math.exp(-elapsed * 9 * ClientPrefs.getGameplaySetting('songspeed')));
+		iconArray[curSelected].scale.set(mult, mult);
+		iconArray[curSelected].updateHitbox();
+
+		if (curBeat % 4 == 0){
+			var mult:Float = FlxMath.lerp(1, bg.scale.x, Math.exp(-elapsed * 9 * ClientPrefs.getGameplaySetting('songspeed')));
+			bg.scale.set(mult, mult);
+			bg.updateHitbox();
+		}
 	}
 
 	public static function destroyFreeplayVocals() {
@@ -487,6 +501,8 @@ class FreeplayState extends MusicBeatState
 		for (i in 0...iconArray.length)
 		{
 			iconArray[i].alpha = 0.6;
+			iconArray[i].scale.set(1, 1);
+			iconArray[i].updateHitbox();
 		}
 
 		iconArray[curSelected].alpha = 1;
@@ -555,6 +571,18 @@ class FreeplayState extends MusicBeatState
 			var icon:HealthIcon = iconArray[i];
 			icon.visible = icon.active = true;
 			_lastVisibles.push(i);
+		}
+	}
+
+	override function beatHit() {
+		super.beatHit();
+
+		iconArray[curSelected].scale.set(1.2, 1.2);
+		iconArray[curSelected].updateHitbox();
+
+		if (curBeat % 4 == 0){
+			bg.scale.set(1.05, 1.05);
+			bg.updateHitbox();
 		}
 	}
 
