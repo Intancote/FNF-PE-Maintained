@@ -9,7 +9,7 @@ import options.OptionsState;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.1.0'; // This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.1.0 Demo'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -27,8 +27,7 @@ class MainMenuState extends MusicBeatState
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 
-	public static var firstStart:Bool = true;
-	static var finishedFunnyMove:Bool = false;
+	var finishedFunnyMove:Bool = false;
 
 	override function create()
 	{
@@ -82,37 +81,29 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItems.add(menuItem);
+			menuItem.updateHitbox();
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if (optionShit.length < 6)
 				scr = 0;
-			
 
-			if (firstStart)
-				FlxTween.tween(menuItem, {x: 0}, 1 + (i * 0.25), {
-					ease: FlxEase.expoInOut,
-					onComplete: function(flxTween:FlxTween)
-					{
-						if (i == optionShit.length - 1)
-							finishedFunnyMove = true;
-						menuItem.scrollFactor.set(0, scr);
-						menuItem.updateHitbox();
-						menuItem.screenCenter(X);
+			menuItem.scrollFactor.set(0, scr);
+
+			FlxTween.tween(menuItem, {x: (FlxG.width - menuItem.width) / 2}, 2, {
+				ease: FlxEase.expoInOut,
+				onComplete: function(flxTween:FlxTween)
+				{
+					if (i == optionShit.length - 1) {
+						finishedFunnyMove = true;
+						changeItem();
 					}
-				});
-			else
-			{
-				menuItem.x = 0;
-				menuItem.scrollFactor.set(0, scr);
-				menuItem.updateHitbox();
-				menuItem.screenCenter(X);
-			}
+				}
+			});
 		}
 
-		var psychVer:FlxText = new FlxText(12, FlxG.height - 24, 0, "Vs Vindix v" + psychEngineVersion, 12);
+		var psychVer:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' Vs Vindix v" + psychEngineVersion, 12);
 		psychVer.scrollFactor.set();
-		psychVer.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		psychVer.setFormat(Paths.font("mono.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(psychVer);
-		changeItem();
 
 		#if ACHIEVEMENTS_ALLOWED
 		// Unlocks "Freaky on a Friday Night" achievement if it's a Friday and between 18:00 PM and 23:59 PM

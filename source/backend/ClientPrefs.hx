@@ -185,7 +185,11 @@ class ClientPrefs {
 			final refreshRate:Int = FlxG.stage.application.window.displayMode.refreshRate;
 			data.framerate = Std.int(FlxMath.bound(refreshRate, 60, 240));
 		}
-		#end
+		#end 
+
+		if(FlxG.save.data.freeplayBPM == null){
+			FlxG.save.data.freeplayBPM = 100;
+		}
 
 		if(data.framerate > FlxG.drawFramerate)
 		{

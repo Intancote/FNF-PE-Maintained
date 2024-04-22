@@ -1,5 +1,6 @@
 package states;
 
+import flixel.addons.ui.FlxInputText;
 import backend.WeekData;
 import backend.Highscore;
 import backend.Song;
@@ -25,6 +26,9 @@ class FreeplayState extends MusicBeatState
 	var scoreBG:FlxSprite;
 	var scoreText:FlxText;
 	var diffText:FlxText;
+
+	var bpmInput:FlxInputText;
+	var bpmText:FlxText;
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
@@ -125,7 +129,7 @@ class FreeplayState extends MusicBeatState
 		WeekData.setDirectoryFromWeek();
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
-		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
+		scoreText.setFormat(Paths.font("mono.ttf"), 32, FlxColor.WHITE, RIGHT);
 
 		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
@@ -135,6 +139,18 @@ class FreeplayState extends MusicBeatState
 		diffText.font = scoreText.font;
 		add(diffText);
 
+		bpmText = new FlxText(diffText.x, diffText.y + 28, 0, "Cur bpm:", 12);
+		bpmText.font = scoreText.font;
+		bpmText.visible = false; 
+		add(bpmText);
+
+		bpmInput = new FlxInputText(bpmText.x, bpmText.y + 18, 140, "", 12);
+		bpmInput.font = bpmInput.font;
+		bpmInput.text = FlxG.save.data.freeplayBPM;
+		bpmInput.visible = false;
+		add(bpmInput);
+		Conductor.bpm = FlxG.save.data.freeplayBPM;
+		
 		add(scoreText);
 
 
@@ -144,7 +160,7 @@ class FreeplayState extends MusicBeatState
 		add(missingTextBG);
 		
 		missingText = new FlxText(50, 0, FlxG.width - 100, '', 24);
-		missingText.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		missingText.setFormat(Paths.font("mono.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		missingText.scrollFactor.set();
 		missingText.visible = false;
 		add(missingText);
@@ -164,7 +180,7 @@ class FreeplayState extends MusicBeatState
 		bottomString = leText;
 		var size:Int = 16;
 		bottomText = new FlxText(bottomBG.x, bottomBG.y + 4, FlxG.width, leText, size);
-		bottomText.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, CENTER);
+		bottomText.setFormat(Paths.font("mono.ttf"), size, FlxColor.WHITE, CENTER);
 		bottomText.scrollFactor.set();
 		add(bottomText);
 		
@@ -195,6 +211,8 @@ class FreeplayState extends MusicBeatState
 	var instPlaying:Int = -1;
 	public static var vocals:FlxSound = null;
 	var holdTime:Float = 0;
+
+	var bpmSettingActive = false;
 	override function update(elapsed:Float)
 	{
 		if (FlxG.sound.music != null)
@@ -283,7 +301,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 
-		if (controls.BACK)
+		if (controls.BACK && !bpmSettingActive)
 		{
 			if (player.playingMusic)
 			{
@@ -307,6 +325,23 @@ class FreeplayState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
 			}
+		}
+
+		if(controls.justPressed('debug_1') && !bpmSettingActive){
+			bpmSettingActive = true;
+			FlxG.mouse.visible = true;
+			scoreBG.makeGraphic(1, 108, 0xFF000000);
+			bpmInput.visible = true;
+			bpmText.visible = true; 
+		}
+		else if (controls.justPressed('debug_1') && bpmSettingActive) {
+			bpmSettingActive = false;
+			FlxG.mouse.visible = false;
+			scoreBG.makeGraphic(1, 66, 0xFF000000);
+			bpmInput.visible = false;
+			bpmText.visible = false; 
+			FlxG.save.data.freeplayBPM = Std.parseFloat(bpmInput.text);
+			Conductor.bpm = Std.parseFloat(bpmInput.text);
 		}
 
 		if(FlxG.keys.justPressed.CONTROL && !player.playingMusic)
@@ -355,22 +390,14 @@ class FreeplayState extends MusicBeatState
 			else if (instPlaying == curSelected && player.playingMusic)
 			{
 				player.pauseOrResume(player.paused);
+				Conductor.bpm = FlxG.save.data.freeplayBPM;
 			}
 		}
-		else if (controls.ACCEPT && !player.playingMusic)
+		else if (controls.ACCEPT && !player.playingMusic && !bpmSettingActive)
 		{
 			persistentUpdate = false;
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
-			/*#if MODS_ALLOWED
-			if(!FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
-			#else
-			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
-			#end
-				poop = songLowercase;
-				curDifficulty = 1;
-				trace('Couldnt find file');
-			}*/
 			trace(poop);
 
 			try
@@ -423,8 +450,10 @@ class FreeplayState extends MusicBeatState
 		iconArray[curSelected].updateHitbox();
 
 		if (curBeat % 4 == 0){
-			var mult:Float = FlxMath.lerp(1, bg.scale.x, Math.exp(-elapsed * 9 * ClientPrefs.getGameplaySetting('songspeed')));
-			bg.scale.set(mult, mult);
+			var multX:Float = FlxMath.lerp(1, bg.scale.x, Math.exp(-elapsed * 9 * ClientPrefs.getGameplaySetting('songspeed')));
+			var multY:Float = FlxMath.lerp(1, bg.scale.y, Math.exp(-elapsed * 9 * ClientPrefs.getGameplaySetting('songspeed')));
+			bg.scale.set(multX, multY);
+			bg.screenCenter();
 			bg.updateHitbox();
 		}
 	}
@@ -582,6 +611,7 @@ class FreeplayState extends MusicBeatState
 
 		if (curBeat % 4 == 0){
 			bg.scale.set(1.05, 1.05);
+			bg.screenCenter();
 			bg.updateHitbox();
 		}
 	}

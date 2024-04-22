@@ -1,5 +1,6 @@
 package;
 
+import flixel.system.FlxAssets;
 #if android
 import android.content.Context;
 #end
@@ -67,6 +68,8 @@ class Main extends Sprite
 		#elseif ios
 		Sys.setCwd(lime.system.System.applicationStorageDirectory);
 		#end
+
+		FlxAssets.FONT_DEFAULT = Paths.font("vcr.ttf");
 
 		if (stage != null)
 		{
