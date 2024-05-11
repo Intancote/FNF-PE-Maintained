@@ -60,6 +60,11 @@
       "url": "https://github.com/MAJigsaw77/hxdiscord_rpc"
     },
     {
+      "name": "hxp",
+      "type": "haxelib",
+      "version": null
+    },
+    {
       "name": "lime",
       "type": "git",
       "dir": null,
