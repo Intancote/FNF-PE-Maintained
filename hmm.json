@@ -1,12 +1,7 @@
 {
   "dependencies": [
     {
-      "name": "lime",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "openfl",
+      "name": "SScript",
       "type": "haxelib",
       "version": null
     },
@@ -31,9 +26,11 @@
       "version": null
     },
     {
-      "name": "hxcpp",
-      "type": "haxelib",
-      "version": null
+      "name": "flxanimate",
+      "type": "git",
+      "dir": null,
+      "ref": "dev",
+      "url": "https://github.com/ShadowMario/flxanimate"
     },
     {
       "name": "hxCodec",
@@ -41,17 +38,12 @@
       "version": null
     },
     {
-      "name": "SScript",
+      "name": "hxcpp",
       "type": "haxelib",
       "version": null
     },
     {
       "name": "hxcpp-debug-server",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "tjson",
       "type": "haxelib",
       "version": null
     },
@@ -63,11 +55,11 @@
       "url": "https://github.com/MAJigsaw77/hxdiscord_rpc"
     },
     {
-      "name": "flxanimate",
+      "name": "lime",
       "type": "git",
       "dir": null,
-      "ref": "dev",
-      "url": "https://github.com/ShadowMario/flxanimate"
+      "ref": "master",
+      "url": "https://github.com/openfl/lime.git"
     },
     {
       "name": "linc_luajit",
@@ -75,6 +67,16 @@
       "dir": null,
       "ref": "master",
       "url": "https://github.com/superpowers04/linc_luajit"
+    },
+    {
+      "name": "openfl",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "tjson",
+      "type": "haxelib",
+      "version": null
     }
   ]
 }
