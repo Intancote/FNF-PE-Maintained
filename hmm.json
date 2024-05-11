@@ -66,10 +66,8 @@
     },
     {
       "name": "lime",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/openfl/lime.git"
+      "type": "haxelib",
+      "version": null
     },
     {
       "name": "linc_luajit",
