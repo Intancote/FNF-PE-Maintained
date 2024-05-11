@@ -49,7 +49,7 @@ jobs:
       - name: Compile 64
         run: haxelib run lime build windows
       - name: Compile 32
-        run: haxelib run lime build windows -DHXCPP_M32 -D32bit
+        run: haxelib run lime build windows -DHXCPP_M32 -D32bits
       - name: Make 64 zip
         run: |
           7z a -tzip "mod64.zip" "./export/release/windows/bin/*"
