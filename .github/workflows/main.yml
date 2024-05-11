@@ -29,7 +29,6 @@ jobs:
         run: |
           haxelib setup C:/haxelib
           haxelib install hxcpp > /dev/null --quiet
-          haxelib install format
           haxe -cp ./setup -D analyzer-optimize -main Main --interp
           haxelib run lime setup
         shell: cmd
