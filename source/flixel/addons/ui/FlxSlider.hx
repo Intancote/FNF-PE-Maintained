@@ -339,10 +339,12 @@ class FlxSlider extends FlxSpriteGroup
 		super.update(elapsed);
 	}
 
-	private function mouseInRect(rect:flixel.math.FlxRect) 
+	private function mouseInRect(rect:flixel.math.FlxRect)
 	{
-		if (FlxMath.pointInFlxRect(FlxG.mouse.getPositionInCameraView(camera).x,FlxG.mouse.getPositionInCameraView(camera).y,rect)) return true;
-		else return false;
+		if (FlxMath.pointInFlxRect(FlxG.mouse.getPositionInCameraView(camera).x, FlxG.mouse.getPositionInCameraView(camera).y, rect))
+			return true;
+		else
+			return false;
 	}
 
 	/**

@@ -2,7 +2,6 @@ package backend;
 
 // PsychCamera handles followLerp based on elapsed
 // and stops camera from snapping at higher framerates
-
 class PsychCamera extends FlxCamera
 {
 	override public function update(elapsed:Float):Void
@@ -58,7 +57,7 @@ class PsychCamera extends FlxCamera
 				{
 					_scrollTarget.y -= viewHeight;
 				}
-				
+
 				// without this we see weird behavior when switching to SCREEN_BY_SCREEN at arbitrary scroll positions
 				bindScrollPos(_scrollTarget);
 			}
@@ -104,7 +103,7 @@ class PsychCamera extends FlxCamera
 		var mult:Float = 1 - Math.exp(-elapsed * followLerp);
 		scroll.x += (_scrollTarget.x - scroll.x) * mult;
 		scroll.y += (_scrollTarget.y - scroll.y) * mult;
-		//trace('lerp on this frame: $mult');
+		// trace('lerp on this frame: $mult');
 	}
 
 	override function set_followLerp(value:Float)

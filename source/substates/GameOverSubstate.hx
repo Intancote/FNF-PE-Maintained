@@ -1,17 +1,16 @@
 package substates;
 
 import backend.WeekData;
-
 import objects.Character;
 import flixel.FlxObject;
 import flixel.FlxSubState;
-
 import states.StoryMenuState;
 import states.FreeplayState;
 
 class GameOverSubstate extends MusicBeatSubstate
 {
 	public var boyfriend:Character;
+
 	var camFollow:FlxObject;
 	var moveCamera:Bool = false;
 	var playingDeathSound:Bool = false;
@@ -25,24 +24,30 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	public static var instance:GameOverSubstate;
 
-	public static function resetVariables() {
+	public static function resetVariables()
+	{
 		characterName = 'bf-dead';
 		deathSoundName = 'fnf_loss_sfx';
 		loopSoundName = 'gameOver';
 		endSoundName = 'gameOverEnd';
 
 		var _song = PlayState.SONG;
-		if(_song != null)
+		if (_song != null)
 		{
-			if(_song.gameOverChar != null && _song.gameOverChar.trim().length > 0) characterName = _song.gameOverChar;
-			if(_song.gameOverSound != null && _song.gameOverSound.trim().length > 0) deathSoundName = _song.gameOverSound;
-			if(_song.gameOverLoop != null && _song.gameOverLoop.trim().length > 0) loopSoundName = _song.gameOverLoop;
-			if(_song.gameOverEnd != null && _song.gameOverEnd.trim().length > 0) endSoundName = _song.gameOverEnd;
+			if (_song.gameOverChar != null && _song.gameOverChar.trim().length > 0)
+				characterName = _song.gameOverChar;
+			if (_song.gameOverSound != null && _song.gameOverSound.trim().length > 0)
+				deathSoundName = _song.gameOverSound;
+			if (_song.gameOverLoop != null && _song.gameOverLoop.trim().length > 0)
+				loopSoundName = _song.gameOverLoop;
+			if (_song.gameOverEnd != null && _song.gameOverEnd.trim().length > 0)
+				endSoundName = _song.gameOverEnd;
 		}
 	}
 
 	var charX:Float = 0;
 	var charY:Float = 0;
+
 	override function create()
 	{
 		instance = this;
@@ -64,7 +69,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		camFollow.setPosition(boyfriend.getGraphicMidpoint().x + boyfriend.cameraPosition[0], boyfriend.getGraphicMidpoint().y + boyfriend.cameraPosition[1]);
 		FlxG.camera.focusOn(new FlxPoint(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2)));
 		add(camFollow);
-		
+
 		PlayState.instance.setOnScripts('inGameOver', true);
 		PlayState.instance.callOnScripts('onGameOverStart', []);
 
@@ -72,6 +77,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	}
 
 	public var startedDeath:Bool = false;
+
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
@@ -100,15 +106,15 @@ class GameOverSubstate extends MusicBeatSubstate
 			FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			PlayState.instance.callOnScripts('onGameOverConfirm', [false]);
 		}
-		
+
 		if (boyfriend.animation.curAnim != null)
 		{
 			if (boyfriend.animation.curAnim.name == 'firstDeath' && boyfriend.animation.curAnim.finished && startedDeath)
 				boyfriend.playAnim('deathLoop');
 
-			if(boyfriend.animation.curAnim.name == 'firstDeath')
+			if (boyfriend.animation.curAnim.name == 'firstDeath')
 			{
-				if(boyfriend.animation.curAnim.curFrame >= 12 && !moveCamera)
+				if (boyfriend.animation.curAnim.curFrame >= 12 && !moveCamera)
 				{
 					FlxG.camera.follow(camFollow, LOCKON, 0.6);
 					moveCamera = true;
@@ -121,22 +127,24 @@ class GameOverSubstate extends MusicBeatSubstate
 					{
 						playingDeathSound = true;
 						coolStartDeath(0.2);
-						
-						var exclude:Array<Int> = [];
-						//if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
 
-						FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function() {
-							if(!isEnding)
+						var exclude:Array<Int> = [];
+						// if(!ClientPrefs.cursing) exclude = [1, 3, 8, 13, 17, 21];
+
+						FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + FlxG.random.int(1, 25, exclude)), 1, false, null, true, function()
+						{
+							if (!isEnding)
 							{
 								FlxG.sound.music.fadeIn(0.2, 1, 4);
 							}
 						});
 					}
-					else coolStartDeath();
+					else
+						coolStartDeath();
 				}
 			}
 		}
-		
+
 		if (FlxG.sound.music.playing)
 		{
 			Conductor.songPosition = FlxG.sound.music.time;

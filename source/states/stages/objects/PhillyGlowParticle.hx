@@ -5,6 +5,7 @@ class PhillyGlowParticle extends FlxSprite
 	var lifeTime:Float = 0;
 	var decay:Float = 0;
 	var originalScale:Float = 1;
+
 	public function new(x:Float, y:Float, color:FlxColor)
 	{
 		super(x, y);
@@ -13,7 +14,7 @@ class PhillyGlowParticle extends FlxSprite
 		loadGraphic(Paths.image('philly/particle'));
 		lifeTime = FlxG.random.float(0.6, 0.9);
 		decay = FlxG.random.float(0.8, 1);
-		if(!ClientPrefs.data.flashing)
+		if (!ClientPrefs.data.flashing)
 		{
 			decay *= 0.5;
 			alpha = 0.5;
@@ -31,11 +32,11 @@ class PhillyGlowParticle extends FlxSprite
 	override function update(elapsed:Float)
 	{
 		lifeTime -= elapsed;
-		if(lifeTime < 0)
+		if (lifeTime < 0)
 		{
 			lifeTime = 0;
 			alpha -= decay * elapsed;
-			if(alpha > 0)
+			if (alpha > 0)
 			{
 				scale.set(originalScale * alpha, originalScale * alpha);
 			}
