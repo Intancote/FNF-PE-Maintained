@@ -33,6 +33,11 @@
       "url": "https://github.com/ShadowMario/flxanimate"
     },
     {
+      "name": "format",
+      "type": "haxelib",
+      "version": null
+    },
+    {
       "name": "hxCodec",
       "type": "haxelib",
       "version": null
