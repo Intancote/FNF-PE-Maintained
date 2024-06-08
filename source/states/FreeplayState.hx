@@ -28,7 +28,7 @@ class FreeplayState extends MusicBeatState
 	var scoreText:FlxText;
 	var diffText:FlxText;
 
-	var bpmInput:FlxInputText;
+	var bpmInput:flixel.addons.ui.FlxInputText;
 	var bpmText:FlxText;
 	var lerpScore:Int = 0;
 	var lerpRating:Float = 0;
@@ -158,7 +158,7 @@ class FreeplayState extends MusicBeatState
 		bpmText.visible = false;
 		add(bpmText);
 
-		bpmInput = new FlxInputText(bpmText.x, bpmText.y + 18, 140, "", 12);
+		bpmInput = new flixel.addons.ui.FlxInputText(bpmText.x, bpmText.y + 18, 140, "", 12);
 		bpmInput.font = bpmInput.font;
 		bpmInput.text = FlxG.save.data.freeplayBPM;
 		bpmInput.visible = false;
@@ -513,16 +513,6 @@ class FreeplayState extends MusicBeatState
 			bg.screenCenter();
 			bg.updateHitbox();
 		}
-	}
-
-	public static function destroyFreeplayVocals()
-	{
-		if (vocals != null)
-		{
-			vocals.stop();
-			vocals.destroy();
-		}
-		vocals = null;
 	}
 	
 	function getVocalFromCharacter(char:String)

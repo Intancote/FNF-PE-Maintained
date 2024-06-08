@@ -23,13 +23,9 @@
 	<define name="MODS_ALLOWED" if="desktop || mobile || emscripten" />
 	<define name="HSCRIPT_ALLOWED" if="desktop || mobile || web" />
 	<define name="LUA_ALLOWED" if="desktop || mobile" unless="hl"/>
-	<define name="ACHIEVEMENTS_ALLOWED" />
 	<define name="DISCORD_ALLOWED" if="desktop" unless="hl"/>
 	<define name="TRANSLATIONS_ALLOWED" unless="html5"/>	
-	<define name="SHOW_LOADING_SCREEN" />
-	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE THE PSYCH LOGO FROM LOADING SCREEN -->
-	<define name="VIDEOS_ALLOWED" if="desktop || mobile" unless="32bits || hl || rpi"/> <!-- i'll keep this cuz it makes vscode think i don't use videos -->
-	<define name="ADVANCED_VIDEO_FUNCTIONS" if="VIDEOS_ALLOWED android"/> <!-- un-comment this for peak lua video sprite functions-->
+	<define name="SHOW_LOADING_SCREEN" /><define name="ADVANCED_VIDEO_FUNCTIONS" if="VIDEOS_ALLOWED android"/> <!-- un-comment this for peak lua video sprite functions-->
 	<define name="CUSTOM_SHADERS_ALLOWED" if="LUA_ALLOWED" unless="flash"/>
 	<!--<define name="EXPERIMENTAL_HXLUAJIT" if="android"/>-->
 
