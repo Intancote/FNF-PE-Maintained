@@ -5,12 +5,9 @@ import flixel.input.gamepad.FlxGamepad;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.FlxGamepadManager;
 
-class InputFormatter
-{
-	public static function getKeyName(key:FlxKey):String
-	{
-		switch (key)
-		{
+class InputFormatter {
+	public static function getKeyName(key:FlxKey):String {
+		switch (key) {
 			case BACKSPACE:
 				return "BckSpc";
 			case CONTROL:
@@ -77,13 +74,13 @@ class InputFormatter
 				return ",";
 			case PERIOD:
 				return ".";
-			// case SLASH:
+			//case SLASH:
 			//	return "/";
 			case GRAVEACCENT:
 				return "`";
 			case LBRACKET:
 				return "[";
-			// case BACKSLASH:
+			//case BACKSLASH:
 			//	return "\\";
 			case RBRACKET:
 				return "]";
@@ -95,12 +92,10 @@ class InputFormatter
 				return '---';
 			default:
 				var label:String = Std.string(key);
-				if (label.toLowerCase() == 'null')
-					return '---';
+				if(label.toLowerCase() == 'null') return '---';
 
 				var arr:Array<String> = label.split('_');
-				for (i in 0...arr.length)
-					arr[i] = CoolUtil.capitalize(arr[i]);
+				for (i in 0...arr.length) arr[i] = CoolUtil.capitalize(arr[i]);
 				return arr.join(' ');
 		}
 	}
@@ -110,7 +105,7 @@ class InputFormatter
 		var gamepad:FlxGamepad = FlxG.gamepads.firstActive;
 		var model:FlxGamepadModel = gamepad != null ? gamepad.detectedModel : UNKNOWN;
 
-		switch (key)
+		switch(key)
 		{
 			// Analogs
 			case LEFT_STICK_DIGITAL_LEFT:
@@ -122,8 +117,7 @@ class InputFormatter
 			case LEFT_STICK_DIGITAL_DOWN:
 				return "Down";
 			case LEFT_STICK_CLICK:
-				switch (model)
-				{
+				switch (model) {
 					case PS4: return "L3";
 					case XINPUT: return "LS";
 					default: return "Analog Click";
@@ -138,8 +132,7 @@ class InputFormatter
 			case RIGHT_STICK_DIGITAL_DOWN:
 				return "C. Down";
 			case RIGHT_STICK_CLICK:
-				switch (model)
-				{
+				switch (model) {
 					case PS4: return "R3";
 					case XINPUT: return "RS";
 					default: return "C. Click";
@@ -157,29 +150,25 @@ class InputFormatter
 
 			// Top buttons
 			case LEFT_SHOULDER:
-				switch (model)
-				{
+				switch(model) {
 					case PS4: return "L1";
 					case XINPUT: return "LB";
 					default: return "L. Bumper";
 				}
 			case RIGHT_SHOULDER:
-				switch (model)
-				{
+				switch(model) {
 					case PS4: return "R1";
 					case XINPUT: return "RB";
 					default: return "R. Bumper";
 				}
 			case LEFT_TRIGGER, LEFT_TRIGGER_BUTTON:
-				switch (model)
-				{
+				switch(model) {
 					case PS4: return "L2";
 					case XINPUT: return "LT";
 					default: return "L. Trigger";
 				}
 			case RIGHT_TRIGGER, RIGHT_TRIGGER_BUTTON:
-				switch (model)
-				{
+				switch(model) {
 					case PS4: return "R2";
 					case XINPUT: return "RT";
 					default: return "R. Trigger";
@@ -187,44 +176,38 @@ class InputFormatter
 
 			// Buttons
 			case A:
-				switch (model)
-				{
+				switch (model) {
 					case PS4: return "X";
 					case XINPUT: return "A";
 					default: return "Action Down";
 				}
 			case B:
-				switch (model)
-				{
+				switch (model) {
 					case PS4: return "O";
 					case XINPUT: return "B";
 					default: return "Action Right";
 				}
 			case X:
-				switch (model)
-				{
-					case PS4: return "["; // This gets its image changed through code
+				switch (model) {
+					case PS4: return "["; //This gets its image changed through code
 					case XINPUT: return "X";
 					default: return "Action Left";
 				}
 			case Y:
-				switch (model)
-				{
-					case PS4: return "]"; // This gets its image changed through code
+				switch (model) { 
+					case PS4: return "]"; //This gets its image changed through code
 					case XINPUT: return "Y";
 					default: return "Action Up";
 				}
 
 			case BACK:
-				switch (model)
-				{
+				switch(model) {
 					case PS4: return "Share";
 					case XINPUT: return "Back";
 					default: return "Select";
 				}
 			case START:
-				switch (model)
-				{
+				switch(model) {
 					case PS4: return "Options";
 					default: return "Start";
 				}
@@ -234,12 +217,10 @@ class InputFormatter
 
 			default:
 				var label:String = Std.string(key);
-				if (label.toLowerCase() == 'null')
-					return '---';
+				if(label.toLowerCase() == 'null') return '---';
 
 				var arr:Array<String> = label.split('_');
-				for (i in 0...arr.length)
-					arr[i] = CoolUtil.capitalize(arr[i]);
+				for (i in 0...arr.length) arr[i] = CoolUtil.capitalize(arr[i]);
 				return arr.join(' ');
 		}
 	}

@@ -28,15 +28,13 @@ class Highscore
 			if (songScores.get(daSong) < score)
 			{
 				setScore(daSong, score);
-				if (rating >= 0)
-					setRating(daSong, rating);
+				if(rating >= 0) setRating(daSong, rating);
 			}
 		}
 		else
 		{
 			setScore(daSong, score);
-			if (rating >= 0)
-				setRating(daSong, rating);
+			if(rating >= 0) setRating(daSong, rating);
 		}
 	}
 
@@ -49,8 +47,7 @@ class Highscore
 			if (weekScores.get(daWeek) < score)
 				setWeekScore(daWeek, score);
 		}
-		else
-			setWeekScore(daWeek, score);
+		else setWeekScore(daWeek, score);
 	}
 
 	/**
@@ -63,7 +60,6 @@ class Highscore
 		FlxG.save.data.songScores = songScores;
 		FlxG.save.flush();
 	}
-
 	static function setWeekScore(week:String, score:Int):Void
 	{
 		// Reminder that I don't need to format this song, it should come formatted!
@@ -115,16 +111,12 @@ class Highscore
 	public static function load():Void
 	{
 		if (FlxG.save.data.weekScores != null)
-		{
 			weekScores = FlxG.save.data.weekScores;
-		}
+
 		if (FlxG.save.data.songScores != null)
-		{
 			songScores = FlxG.save.data.songScores;
-		}
+
 		if (FlxG.save.data.songRating != null)
-		{
 			songRating = FlxG.save.data.songRating;
-		}
 	}
 }

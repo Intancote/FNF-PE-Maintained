@@ -20,11 +20,23 @@
 	
 	<!-- ______________________ PSYCH ENGINE CUSTOMIZATION ______________________ -->
 
-	<define name="MODS_ALLOWED" if="desktop" />
-	<define name="HSCRIPT_ALLOWED" if="desktop" />
-	<define name="LUA_ALLOWED" if="desktop" />
+	<define name="MODS_ALLOWED" if="desktop || mobile || emscripten" />
+	<define name="HSCRIPT_ALLOWED" if="desktop || mobile || web" />
+	<define name="LUA_ALLOWED" if="desktop || mobile" unless="hl"/>
 	<define name="ACHIEVEMENTS_ALLOWED" />
-	<define name="DISCORD_ALLOWED" />
+	<define name="DISCORD_ALLOWED" if="desktop" unless="hl"/>
+	<define name="TRANSLATIONS_ALLOWED" unless="html5"/>	
+	<define name="SHOW_LOADING_SCREEN" />
+	<define name="PSYCH_WATERMARKS"/> <!-- DELETE THIS TO REMOVE THE PSYCH LOGO FROM LOADING SCREEN -->
+	<define name="VIDEOS_ALLOWED" if="desktop || mobile" unless="32bits || hl || rpi"/> <!-- i'll keep this cuz it makes vscode think i don't use videos -->
+	<define name="ADVANCED_VIDEO_FUNCTIONS" if="VIDEOS_ALLOWED android"/> <!-- un-comment this for peak lua video sprite functions-->
+	<define name="CUSTOM_SHADERS_ALLOWED" if="LUA_ALLOWED" unless="flash"/>
+	<!--<define name="EXPERIMENTAL_HXLUAJIT" if="android"/>-->
+
+	<section if="officialBuild">
+		<define name="TITLE_SCREEN_EASTER_EGG"/>
+		<define name="BASE_GAME_FILES" />
+	</section>
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
@@ -38,7 +50,7 @@
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false"/>
 
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false"/>
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" allow-high-dpi="true" />
 
 	<!--Switch-specific-->
 	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
@@ -48,6 +60,7 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<set name="BUILD_DIR" value="export/32bit" if="32bits" />
+        <set name="BUILD_DIR" value="export/rpi" if="rpi" />
 
 	<classpath name="source" />
 
@@ -56,44 +69,63 @@
 	<!-- Turn on Crash Handler -->
 	<define name="CRASH_HANDLER" if="desktop release" />
 
+	<define name="PRELOAD_ALL" unless="web" />
+	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
+
 	<!-- Assets -->
 	<assets path="assets/fonts" />
 	<assets path="assets/shared"        exclude="*.ogg" if="web"/>
 	<assets path="assets/shared"        exclude="*.mp3" unless="web"/>
-	<assets path="assets/videos"        library="videos"        if="VIDEOS_ALLOWED"/>
-	<assets path="assets/songs"         library="songs"         exclude="*.ogg" if="web"/>
-	<assets path="assets/songs"         library="songs"         exclude="*.mp3" unless="web"/>
-	<assets path="assets/week_assets"   library="week_assets"   rename="assets" exclude="*.ogg" if="web"/>
-	<assets path="assets/week_assets"   library="week_assets"   rename="assets" exclude="*.mp3" unless="web"/>
+	<assets path="assets/videos"        if="VIDEOS_ALLOWED"/>
+	<assets path="assets/songs"         exclude="*.ogg" if="web"/>
+	<assets path="assets/songs"         exclude="*.mp3" unless="web"/>
+	<assets path="assets/week_assets"   rename="assets" exclude="*.ogg" if="web"/>
+	<assets path="assets/week_assets"   rename="assets" exclude="*.mp3" unless="web"/>
 	<section if="TITLE_SCREEN_EASTER_EGG">
 		<assets path="assets/secrets" rename="assets/shared" exclude="*.ogg" if="web"/>
 		<assets path="assets/secrets" rename="assets/shared" exclude="*.mp3"  unless="web"/>
 	</section>
 
-	<library name="videos"        preload="true" if="VIDEOS_ALLOWED"/>
-	<library name="songs"         preload="true" />
-	<library name="week_assets"   preload="true" />
+	<section if="TRANSLATIONS_ALLOWED">
+		<assets path="assets/translations" rename="assets" exclude="*.ogg" if="web"/>
+		<assets path="assets/translations" rename="assets" exclude="*.mp3"  unless="web"/>
+	</section>
 
-	<define name="CHECK_FOR_UPDATES" if="desktop officialBuild"/>
+	<section if="BASE_GAME_FILES">
+		<assets path="assets/base_game" rename="assets" exclude="*.ogg" if="web"/>
+		<assets path="assets/base_game" rename="assets" exclude="*.mp3"  unless="web"/>
+	</section>
+
+	<section if="NO_PRELOAD_ALL">
+	<library name="songs"         preload="false" />
+	<library name="week_assets"   preload="false" />
+	</section>
+
+	<define name="CHECK_FOR_UPDATES" if="officialBuild" />
 
 	<section if="MODS_ALLOWED">
 		<assets path='example_mods' rename='mods' embed='false'/>
 	</section>
-	<assets path='art/readme.txt' rename='do NOT readme.txt' />
+	<assets path='art/readme.txt' rename='do NOT readme.txt' unless="mobile"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
 	<haxelib name="flixel" />
 	<haxelib name="flixel-ui" />
 	<haxelib name="flixel-addons" />
-	<haxelib name="tjson" />
 
 	<!--Psych stuff needed-->
-	<haxelib name="linc_luajit" if="LUA_ALLOWED"/>
+	<haxelib name="linc_luajit" if="LUA_ALLOWED" unless="EXPERIMENTAL_HXLUAJIT"/>
+	<haxelib name="hxluajit" if="LUA_ALLOWED EXPERIMENTAL_HXLUAJIT"/>
+	<haxelib name="hxvlc" if="VIDEOS_ALLOWED" unless="ADVANCED_VIDEO_FUNCTIONS"/>
+	<haxelib name="hxCodec" if="VIDEOS_ALLOWED ADVANCED_VIDEO_FUNCTIONS"/>
 	<haxelib name="SScript" if="HSCRIPT_ALLOWED"/>
-	<haxelib name="hxCodec" if="VIDEOS_ALLOWED"/>
 	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
-	<haxelib name="flxanimate"/>
+	<haxelib name="flxanimate" unless="html5"/>
+	<haxelib name="tjson"/>
+
+	<!-- Android Specific-->
+	<haxelib name="extension-androidtools" if="android" />
 
 	<!-- Disable Discord IO Thread -->
 	<haxedef name="DISCORD_DISABLE_IO_THREAD" if="hxdiscord_rpc" />
@@ -101,8 +133,9 @@
 
 	<!-- Enables a terminal log prompt on debug builds -->
 	<haxelib name="hxcpp-debug-server" if="debug"/>
-	<haxedef name="HXC_LIBVLC_LOGGING" if="VIDEOS_ALLOWED debug" />
-	
+
+	<haxedef name="openfl_dpi_aware" if="openfl_dpi_aware" />
+
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<!--Enable the Flixel core recording system-->
@@ -128,27 +161,64 @@
 
 	<!--Disable the Flixel core focus lost screen-->
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
-	
+
 	<!-- Show debug traces for hxCodec -->
-	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
+	<haxedef name="HXC_DEBUG_TRACE" if="debug hxCodec" />
+	<haxedef name="HXC_LIBVLC_LOGGING" if="debug hxCodec" />
 	
 	<!--Disable the Flixel core debugger. Automatically gets set whenever you compile in release mode!-->
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 
 	<!--Enable this for Nape release builds for a serious peformance improvement-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-	
-	<!--Used for Izzy Engine's crash handler-->
-	<haxedef name="HXCPP_CHECK_POINTER" if="CRASH_HANDLER" />
-	<haxedef name="HXCPP_STACK_LINE" if="CRASH_HANDLER" />
-	<haxedef name="HXCPP_STACK_TRACE" if="CRASH_HANDLER" />
-	
-	<!--Disable deprecated warnings-->
+
+	<haxedef name="message.reporting" value="pretty" />
+
 	<haxedef name='no-deprecation-warnings' />
+
+	<haxedef name='no-inline' if="html5"/>
+
+		<!--Always enable Null Object Reference check-->
+		<haxedef name="HXCPP_CHECK_POINTER" />
+		<haxedef name="HXCPP_STACK_LINE" />
+		<haxedef name="HXCPP_STACK_TRACE" />
+		<section if="desktop">
+			<!--Enable Handle Error-->
+			<haxedef name="openfl_enable_handle_error" if="${openfl &ge; 9.4.0}" />
+			<!--Undefinitions-->
+			<undefine name="openfl-disable-handle-error" if="debug" unless="${openfl &ge; 9.4.0}" />
+		</section>
+	
+		<section if="android">
+			<!-- Do whatever you want I'm tired uninstall and install everytime -->
+			<certificate path="key.keystore" password="psychengine" alias="psychport" alias-password="psychengine" unless="debug" />
+
+			<!--Target SDK-->
+			<android target-sdk-version="31" />
+
+			<config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
+			<config:android permission="android.permission.REQUEST_INSTALL_PACKAGES" />
+
+			<!-- Fix Networking -->
+			<config:android permission="android.permission.INTERNET" />
+			<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
+		</section>
+
+		<!--<section if="ios">
+			<!--<define name='objc' />
+			<ios linker-flags='-ObjC' />
+		</section>-->
+		
+		<haxeflag name="--macro" value="mobile.macros.GlobalMacro.haxelibWarning()" />
+
+	<!--Avoid memory leaks with for loops in HScript-->
+	<haxedef name="loop_unroll_max_cost" value="25" />
+	<haxedef name="DISABLED_MACRO_SUPERLATIVE" if="mobile" />
 
 	<!--Macro fixes-->
 	<haxeflag name="--macro" value="allowPackage('flash')" />
 	<haxeflag name="--macro" value="include('my.pack')" />
+	<haxeflag name="--macro" value="macros.Keep.keepClasses()" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 

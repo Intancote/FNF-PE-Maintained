@@ -1,51 +1,60 @@
 {
   "dependencies": [
     {
-      "name": "SScript",
+      "name": "lime",
+      "type": "git",
+      "dir": null,
+      "ref": "develop",
+      "url": "https://github.com/mcagabe19-stuff/lime"
+    },
+    {
+      "name": "openfl",
       "type": "haxelib",
-      "version": null
+      "version": "9.3.2"
     },
     {
       "name": "flixel",
       "type": "haxelib",
-      "version": null
+      "version": "5.5.0"
     },
     {
       "name": "flixel-addons",
       "type": "haxelib",
-      "version": null
+      "version": "3.2.1"
     },
     {
       "name": "flixel-tools",
       "type": "haxelib",
-      "version": null
+      "version": "1.5.1"
     },
     {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": null
+      "version": "2.5.0"
     },
     {
-      "name": "flxanimate",
+      "name": "hxcpp",
       "type": "git",
       "dir": null,
-      "ref": "dev",
-      "url": "https://github.com/ShadowMario/flxanimate"
-    },
-    {
-      "name": "format",
-      "type": "haxelib",
-      "version": null
+      "ref": "master",
+      "url": "https://github.com/mcagabe19-stuff/hxcpp" 
     },
     {
       "name": "hxCodec",
       "type": "haxelib",
+      "version": "2.6.0"
+    },
+    {
+      "name": "hxvlc",
+      "type": "haxelib",
       "version": null
     },
     {
-      "name": "hxcpp",
-      "type": "haxelib",
-      "version": null
+      "name": "SScript",
+      "type": "git",
+      "dir": null,
+      "ref": "main",
+      "url": "https://github.com/PsychPorting/SScript-Base"
     },
     {
       "name": "hxcpp-debug-server",
@@ -53,19 +62,17 @@
       "version": null
     },
     {
-      "name": "hxdiscord_rpc",
-      "type": "git",
-      "dir": null,
-      "ref": "main",
-      "url": "https://github.com/MAJigsaw77/hxdiscord_rpc"
+      "name": "tjson",
+      "type": "haxelib",
+      "version": "1.4.0"
     },
     {
-      "name": "hxp",
+      "name": "hxdiscord_rpc",
       "type": "haxelib",
       "version": null
     },
     {
-      "name": "lime",
+      "name": "hxluajit",
       "type": "haxelib",
       "version": null
     },
@@ -74,17 +81,21 @@
       "type": "git",
       "dir": null,
       "ref": "master",
-      "url": "https://github.com/superpowers04/linc_luajit"
+      "url": "https://github.com/superpowers04/linc_luajit.git"
     },
     {
-      "name": "openfl",
-      "type": "haxelib",
-      "version": null
+      "name": "flxanimate",
+      "type": "git",
+      "dir": null,
+      "ref": "dev",
+      "url": "https://github.com/ShadowMario/flxanimate.git"
     },
     {
-      "name": "tjson",
-      "type": "haxelib",
-      "version": null
+      "name": "extension-androidtools",
+      "type": "git",
+      "dir": null,
+      "ref": "SAF",
+      "url": "https://github.com/PsychPorting/extension-androidtools-Base.git"
     }
   ]
 }
