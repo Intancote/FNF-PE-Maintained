@@ -25,14 +25,8 @@
 	<define name="LUA_ALLOWED" if="desktop || mobile" unless="hl"/>
 	<define name="DISCORD_ALLOWED" if="desktop" unless="hl"/>
 	<define name="TRANSLATIONS_ALLOWED" unless="html5"/>	
-	<define name="SHOW_LOADING_SCREEN" /><define name="ADVANCED_VIDEO_FUNCTIONS" if="VIDEOS_ALLOWED android"/> <!-- un-comment this for peak lua video sprite functions-->
+	<define name="SHOW_LOADING_SCREEN" />
 	<define name="CUSTOM_SHADERS_ALLOWED" if="LUA_ALLOWED" unless="flash"/>
-	<!--<define name="EXPERIMENTAL_HXLUAJIT" if="android"/>-->
-
-	<section if="officialBuild">
-		<define name="TITLE_SCREEN_EASTER_EGG"/>
-		<define name="BASE_GAME_FILES" />
-	</section>
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
@@ -97,8 +91,6 @@
 	<library name="week_assets"   preload="false" />
 	</section>
 
-	<define name="CHECK_FOR_UPDATES" if="officialBuild" />
-
 	<section if="MODS_ALLOWED">
 		<assets path='example_mods' rename='mods' embed='false'/>
 	</section>
@@ -113,8 +105,6 @@
 	<!--Psych stuff needed-->
 	<haxelib name="linc_luajit" if="LUA_ALLOWED" unless="EXPERIMENTAL_HXLUAJIT"/>
 	<haxelib name="hxluajit" if="LUA_ALLOWED EXPERIMENTAL_HXLUAJIT"/>
-	<haxelib name="hxvlc" if="VIDEOS_ALLOWED" unless="ADVANCED_VIDEO_FUNCTIONS"/>
-	<haxelib name="hxCodec" if="VIDEOS_ALLOWED ADVANCED_VIDEO_FUNCTIONS"/>
 	<haxelib name="SScript" if="HSCRIPT_ALLOWED"/>
 	<haxelib name="hxdiscord_rpc" if="DISCORD_ALLOWED"/>
 	<haxelib name="flxanimate" unless="html5"/>
